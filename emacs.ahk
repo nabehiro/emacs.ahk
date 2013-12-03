@@ -49,6 +49,14 @@ delete_char()
   global is_pre_spc = 0
   Return
 }
+delete_one_word()
+{
+  send !+{Right}
+  Sleep 50 ;[ms] this value depends on your environment
+  Send {Del}
+  global is_pre_spc = 0
+  Return
+}
 delete_backward_char()
 {
   Send {BS}
@@ -193,6 +201,15 @@ forward_char()
     Send {Right}
   Return
 }
+forward_one_word()
+{
+  global
+  if is_pre_spc
+    Send +!{Right}
+  Else
+    Send !{Right}
+  Return
+}
 backward_char()
 {
   global
@@ -200,6 +217,15 @@ backward_char()
     Send +{Left} 
   Else
     Send {Left}
+  Return
+}
+backward_one_word()
+{
+  global
+  if is_pre_spc
+    Send +!{Left} 
+  Else
+    Send !{Left}
   Return
 }
 scroll_up()
@@ -238,16 +264,16 @@ scroll_down()
     Else
       forward_char()
   }
-  Return  
-^c::
-  If is_target()
-    Send %A_ThisHotkey%
-  Else
-  {
-    If is_pre_x
-      kill_emacs()
-  }
-  Return  
+  Return
+;^c::
+;  If is_target()
+;    Send %A_ThisHotkey%
+;  Else
+;  {
+;    If is_pre_x
+;      kill_emacs()
+;  }
+;  Return  
 ^d::
   If is_target()
     Send %A_ThisHotkey%
@@ -404,3 +430,21 @@ scroll_down()
     scroll_up()
   Return
 
+!f::
+  If is_target()
+    Send %A_ThisHotkey%
+  Else
+    forward_one_word()
+  Return
+!b::
+  If is_target()
+    Send %A_ThisHotkey%
+  Else
+    backward_one_word()
+  Return
+!d::
+  If is_target()
+    Send %A_ThisHotkey%
+  Else
+    delete_one_word()
+  Return

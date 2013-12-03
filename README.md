@@ -3,6 +3,12 @@ An autohotkey script that provides emacs-like keybindings on Windows.
 Feel free to commit this repository.
 I have used and maintained this script since Sep 21, 2007. 
 
+## Changes from original
+### add
+M-f, M-b, M-d
+### disabled
+c-c
+
 ## Supported keybindings
 <table>
   <tr>
